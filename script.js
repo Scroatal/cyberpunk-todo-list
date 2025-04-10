@@ -1,14 +1,38 @@
-// DOM Element References
-const taskInput = document.getElementById('taskInput'); // Manual task input
-const addTaskBtn = document.getElementById('addTaskBtn'); // Manual add button
-const taskList = document.getElementById('taskList'); // UL for tasks
-const sendSummaryBtn = document.getElementById('sendSummaryBtn'); // Send summary button
-const threeCanvasContainer = document.getElementById('three-canvas-container'); // For Three.js
-const emailInput = document.getElementById('emailInput'); // Feedback paste textarea
-const fileInput = document.getElementById('fileInput'); // Feedback file input
-const parseEmailBtn = document.getElementById('parseEmailBtn'); // Parse button
-const clearAllBtn = document.getElementById('clearAllBtn'); // Clear All button
-const recipientEmailInput = document.getElementById('recipientEmail'); // Recipient email input
+// --- Rudimentary Auth (INSECURE) ---
+function basicAuth() {
+    const correctPassword = 'scroat'; // CHANGE THIS - BUT IT REMAINS VISIBLE IN CODE
+    const enteredPassword = prompt("Enter password to access:");
+
+    if (enteredPassword === correctPassword) {
+        const appContainer = document.getElementById('app-container');
+        if (appContainer) {
+            appContainer.style.display = 'block'; // Show the app
+            console.log("Basic auth passed.");
+            initializeMainApp(); // Run the rest of the app setup
+        } else {
+             console.error("App container not found!");
+             alert("Error: App container missing.");
+        }
+    } else {
+        alert("Incorrect password.");
+        // Optionally redirect or disable further interaction
+        document.body.innerHTML = '<h1 style="color: red; text-align: center; margin-top: 50px;">Access Denied</h1>';
+    }
+}
+
+// --- Main App Initialization ---
+function initializeMainApp() {
+    // DOM Element References (moved inside init)
+    const taskInput = document.getElementById('taskInput');
+    const addTaskBtn = document.getElementById('addTaskBtn');
+    const taskList = document.getElementById('taskList');
+    const sendSummaryBtn = document.getElementById('sendSummaryBtn');
+    const threeCanvasContainer = document.getElementById('three-canvas-container');
+    const emailInput = document.getElementById('emailInput');
+    const fileInput = document.getElementById('fileInput');
+    const parseEmailBtn = document.getElementById('parseEmailBtn');
+    const clearAllBtn = document.getElementById('clearAllBtn');
+    const recipientEmailInput = document.getElementById('recipientEmail');
 
 // --- To-Do List Logic ---
 let tasks = []; // Array to hold task objects {id: number, text: string, completed: boolean}
@@ -367,8 +391,14 @@ sendSummaryBtn.addEventListener('click', () => {
 parseEmailBtn.addEventListener('click', parseAndAddTasksAI); // Use the new AI function
 
 // Listener for clearing all tasks
-clearAllBtn.addEventListener('click', clearAllTasks);
-// --- Initial Load ---
-document.addEventListener('DOMContentLoaded', loadTasks); // Load tasks when the DOM is ready
+    clearAllBtn.addEventListener('click', clearAllTasks);
 
-console.log("Core script with To-Do logic loaded.");
+    // --- Initial Load ---
+    loadTasks(); // Load tasks now that elements are referenced
+
+    console.log("Core script with To-Do logic loaded.");
+} // End of initializeMainApp function
+
+// --- Start Execution ---
+// Run basic auth check when the DOM is ready
+document.addEventListener('DOMContentLoaded', basicAuth);

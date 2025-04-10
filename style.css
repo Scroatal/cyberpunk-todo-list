@@ -54,6 +54,7 @@ body {
     -webkit-backdrop-filter: blur(10px); /* Safari support */
     max-height: 90vh; /* Limit height */
     overflow-y: auto; /* Add vertical scrollbar ONLY if content overflows */
+    display: none; /* Hide by default for basic auth */
 }
 
 /* Custom Scrollbar (Optional, Webkit only) */
