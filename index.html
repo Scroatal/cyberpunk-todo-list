@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animated To-Do List</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Jura:wght@400;700&family=Orbitron:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Container for Three.js Canvas -->
+    <div id="three-canvas-container"></div>
+
+    <!-- Main App Content -->
+    <div id="app-container">
+        <h1>My Awesome To-Do List</h1>
+
+        <div class="email-parser-container">
+            <label for="emailInput">Paste Feedback Text:</label>
+            <textarea id="emailInput" rows="6" placeholder="Paste feedback text here..."></textarea>
+
+            <label for="fileInput" class="file-input-label">Or Upload Feedback File (.txt, .docx):</label>
+            <input type="file" id="fileInput" accept=".txt,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document">
+
+            <button id="parseEmailBtn">Parse Tasks from Input</button>
+        </div>
+        <div class="input-container">
+            <input type="text" id="taskInput" placeholder="Add a new task...">
+            <button id="addTaskBtn">Add Task</button>
+        </div>
+
+        <ul id="taskList">
+            <!-- Task items will be dynamically added here -->
+        </ul>
+<div class="recipient-container">
+     <label for="recipientEmail">Recipient Email:</label>
+     <input type="email" id="recipientEmail" placeholder="Enter client's email address...">
+</div>
+
+<div class="action-buttons-container">
+        <div class="action-buttons-container">
+            <button id="sendSummaryBtn">Send Daily Summary</button>
+            <button id="clearAllBtn" class="danger-btn">Clear All Tasks</button>
+        </div>
+    </div>
+
+    <!-- Libraries -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+    <!-- App Scripts -->
+    <script src="script.js"></script>
+    <script src="three-animations.js"></script> 
+</body>
+</html>

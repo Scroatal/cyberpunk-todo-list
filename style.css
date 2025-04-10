@@ -1,0 +1,378 @@
+/* Basic Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Cyberpunk Color Palette & Fonts */
+:root {
+    --bg-color: #0f0f1e;
+    --primary-glow: #ff53a2; /* Hot Pink */
+    --secondary-glow: #5a00df; /* Purple */
+    --tertiary-glow: #00ffd5; /* Cyan */
+    --text-color: var(--tertiary-glow);
+    --text-dim: rgba(0, 255, 213, 0.6); /* Dimmer cyan */
+    --glass-bg: rgba(15, 15, 30, 0.6); /* Semi-transparent dark bg */
+    --border-color: var(--tertiary-glow);
+    --font-primary: 'Orbitron', sans-serif;
+    --font-secondary: 'Jura', sans-serif;
+}
+
+body {
+    font-family: var(--font-secondary);
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    line-height: 1.6;
+    /* overflow: hidden; */ /* Keep body scrollable if needed */
+    position: relative;
+    min-height: 100vh; /* Ensure body takes full height */
+}
+
+/* Three.js Canvas Container */
+#three-canvas-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+/* Main App Content Container - Glass Panel */
+#app-container {
+    position: relative;
+    z-index: 1;
+    max-width: 700px; /* Slightly wider */
+    margin: 5vh auto; /* Vertical centering using viewport height */
+    padding: 30px 40px;
+    background-color: var(--glass-bg);
+    border: 1px solid rgba(0, 255, 213, 0.3); /* Subtle cyan border */
+    border-radius: 8px;
+    box-shadow: 0 0 25px rgba(0, 255, 213, 0.1); /* Subtle cyan glow */
+    backdrop-filter: blur(10px); /* Glass effect */
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+    max-height: 90vh; /* Limit height */
+    overflow-y: auto; /* Add vertical scrollbar ONLY if content overflows */
+}
+
+/* Custom Scrollbar (Optional, Webkit only) */
+#app-container::-webkit-scrollbar {
+    width: 8px;
+}
+#app-container::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+}
+#app-container::-webkit-scrollbar-thumb {
+    background-color: var(--tertiary-glow);
+    border-radius: 4px;
+    border: 2px solid transparent;
+    background-clip: content-box;
+}
+#app-container::-webkit-scrollbar-thumb:hover {
+    background-color: var(--primary-glow);
+}
+
+
+h1 {
+    font-family: var(--font-primary);
+    text-align: center;
+    color: var(--primary-glow);
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    text-shadow: 0 0 5px var(--primary-glow), 0 0 10px var(--primary-glow);
+}
+
+/* Input Containers */
+.email-parser-container,
+.input-container {
+    margin-bottom: 25px;
+    padding: 20px;
+    border: 1px solid rgba(90, 0, 223, 0.3); /* Subtle purple border */
+    border-radius: 6px;
+    background-color: rgba(15, 15, 30, 0.3); /* Slightly darker inner glass */
+}
+
+label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: bold;
+    color: var(--tertiary-glow); /* Changed from purple to cyan for readability */
+    text-transform: uppercase;
+    font-size: 0.9em;
+    letter-spacing: 1px;
+}
+
+/* Inputs and Textarea */
+input[type="text"],
+input[type="email"], /* Add email type */
+textarea,
+input[type="file"] {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 10px;
+    border: 1px solid var(--secondary-glow);
+    background-color: rgba(15, 15, 30, 0.8); /* Darker input bg */
+    color: var(--text-color);
+    border-radius: 4px;
+    font-family: var(--font-secondary);
+    font-size: 1em;
+    outline: none;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus, /* Add email type */
+textarea:focus {
+    border-color: var(--primary-glow);
+    box-shadow: 0 0 10px var(--primary-glow), inset 0 0 5px rgba(255, 83, 162, 0.3);
+}
+
+textarea {
+    resize: vertical;
+    min-height: 80px;
+}
+
+/* File Input Specifics */
+input[type="file"] {
+    padding: 8px; /* Adjust padding */
+    cursor: pointer;
+}
+
+input[type="file"]::file-selector-button {
+    padding: 8px 15px;
+    border: none;
+    background-color: var(--secondary-glow);
+    color: var(--bg-color);
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-weight: bold;
+    text-transform: uppercase;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+     background-color: var(--primary-glow);
+     box-shadow: 0 0 8px var(--primary-glow);
+}
+
+
+/* Buttons */
+button {
+    padding: 10px 25px; /* More padding */
+    border: 1px solid var(--primary-glow);
+    background-color: transparent; /* Transparent background */
+    color: var(--primary-glow);
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease, transform 0.1s ease;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: var(--font-primary);
+    text-shadow: 0 0 3px var(--primary-glow);
+}
+
+button:hover {
+    background-color: var(--primary-glow);
+    color: var(--bg-color);
+    box-shadow: 0 0 15px var(--primary-glow);
+    transform: translateY(-1px);
+}
+
+button:active {
+    transform: translateY(1px);
+    box-shadow: 0 0 5px var(--primary-glow);
+}
+
+button:disabled {
+    border-color: var(--text-dim);
+    color: var(--text-dim);
+    text-shadow: none;
+    cursor: not-allowed;
+    background-color: transparent !important; /* Override hover */
+    box-shadow: none !important;
+    transform: none !important;
+}
+
+
+#addTaskBtn {
+     border-radius: 0 4px 4px 0;
+     /* border-left: none; */ /* Removed this */
+     margin-left: -1px; /* Overlap borders */
+     position: relative; /* Ensure button is drawn on top */
+     z-index: 2; /* Ensure button is drawn on top */
+}
+#taskInput {
+    border-radius: 4px 0 0 4px;
+    /* border-right: none; */ /* Removed this */
+}
+#taskInput:focus {
+     border-right: 1px solid var(--primary-glow); /* Add border back on focus */
+}
+
+
+#parseEmailBtn {
+    width: 100%;
+    margin-top: 10px;
+    border-color: var(--tertiary-glow); /* Changed to cyan */
+    color: var(--tertiary-glow); /* Changed to cyan */
+    text-shadow: 0 0 3px var(--tertiary-glow); /* Changed to cyan */
+}
+#parseEmailBtn:hover {
+    background-color: var(--tertiary-glow); /* Changed to cyan */
+    color: var(--bg-color);
+    box-shadow: 0 0 15px var(--tertiary-glow); /* Changed to cyan */
+}
+#parseEmailBtn:disabled {
+    border-color: var(--text-dim);
+    color: var(--text-dim);
+}
+
+/* Recipient Email Input Area */
+.recipient-container {
+    margin-bottom: 20px; /* Space before action buttons */
+}
+
+#recipientEmail {
+    /* Inherit styles from general input rules */
+    margin-bottom: 0; /* Remove default bottom margin for inputs */
+}
+
+/* Keep the specific focus style for recipient email if desired, */
+/* or remove lines 243-246 if you want it to match the text input focus (pink) */
+#recipientEmail:focus {
+     border-color: var(--tertiary-glow); /* Use cyan for focus */
+     box-shadow: 0 0 10px var(--tertiary-glow), inset 0 0 5px rgba(0, 255, 213, 0.3);
+}
+
+
+/* Action Buttons Container */
+/* Action Buttons Container */
+.action-buttons-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    gap: 15px; /* Add gap between buttons */
+}
+.action-buttons-container button {
+    flex-grow: 1; /* Make buttons share space */
+    border-radius: 4px; /* Consistent radius */
+    margin: 0; /* Remove individual margins */
+}
+
+#sendSummaryBtn {
+    border-color: var(--tertiary-glow);
+    color: var(--tertiary-glow);
+    text-shadow: 0 0 3px var(--tertiary-glow);
+}
+#sendSummaryBtn:hover {
+    background-color: var(--tertiary-glow);
+    color: var(--bg-color);
+    box-shadow: 0 0 15px var(--tertiary-glow);
+}
+
+.danger-btn { /* Clear All */
+    border-color: #ff4d4d; /* Neon Red */
+    color: #ff4d4d;
+    text-shadow: 0 0 3px #ff4d4d;
+}
+.danger-btn:hover {
+    background-color: #ff4d4d;
+    color: var(--bg-color);
+    box-shadow: 0 0 15px #ff4d4d;
+}
+
+
+/* Task List */
+#taskList {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+}
+
+#taskList li {
+    background-color: rgba(15, 15, 30, 0.5); /* Darker item bg */
+    padding: 12px 18px;
+    margin-bottom: 12px;
+    border-radius: 4px;
+    border: 1px solid rgba(90, 0, 223, 0.4); /* Purple border */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.3s ease, border-color 0.3s ease, transform 0.2s ease;
+    font-size: 1.05em;
+    word-break: break-word; /* Prevent long words overflowing */
+}
+
+#taskList li:hover {
+     background-color: rgba(90, 0, 223, 0.3); /* Purple tint on hover */
+     border-color: var(--secondary-glow);
+     transform: translateX(3px);
+}
+
+#taskList li.completed {
+    color: var(--text-dim);
+    background-color: rgba(15, 15, 30, 0.2);
+    border-color: rgba(0, 255, 213, 0.2); /* Dim cyan border */
+    font-style: italic;
+}
+#taskList li.completed:hover {
+    background-color: rgba(0, 255, 213, 0.1); /* Cyan tint on hover */
+    border-color: var(--tertiary-glow);
+}
+
+/* Complete Button on Task Item */
+#taskList li button.complete-btn {
+    background-color: transparent;
+    color: var(--tertiary-glow);
+    border: 1px solid var(--tertiary-glow);
+    padding: 4px 8px;
+    font-size: 0.75em;
+    cursor: pointer;
+    margin-left: 15px; /* More space */
+    border-radius: 3px;
+    text-transform: uppercase;
+    flex-shrink: 0; /* Prevent button shrinking */
+}
+
+#taskList li button.complete-btn:hover {
+    background-color: var(--tertiary-glow);
+    color: var(--bg-color);
+    box-shadow: 0 0 8px var(--tertiary-glow);
+}
+
+/* --- Responsive Styles --- */
+@media (max-width: 768px) {
+    #app-container {
+        max-width: 95%; /* Use more screen width */
+        margin: 3vh auto; /* Reduce vertical margin */
+        padding: 20px; /* Reduce padding */
+        max-height: 94vh; /* Allow slightly more height */
+    }
+
+    h1 {
+        font-size: 1.8em; /* Slightly smaller heading */
+        margin-bottom: 20px;
+    }
+
+    /* Stack action buttons vertically */
+    .action-buttons-container {
+        flex-direction: column;
+        gap: 10px; /* Adjust gap for vertical stacking */
+    }
+
+    .action-buttons-container button {
+        width: 100%; /* Make buttons full width when stacked */
+    }
+
+    /* Adjust padding/font size for smaller buttons if needed */
+    #taskList li button.complete-btn {
+        padding: 3px 6px;
+        font-size: 0.7em;
+    }
+}
