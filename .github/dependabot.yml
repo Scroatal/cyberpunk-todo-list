@@ -3,6 +3,8 @@ version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/backend"
+    assignees:
+      - "Scroatal"
     schedule:
       interval: "weekly"
       day: "monday"
