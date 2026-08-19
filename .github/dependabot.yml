@@ -1,0 +1,16 @@
+version: 2
+
+updates:
+  - package-ecosystem: "npm"
+    directory: "/backend"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "10:20"
+      timezone: "Australia/Sydney"
+    open-pull-requests-limit: 5
+    groups:
+      minor-and-patch:
+        update-types:
+          - "minor"
+          - "patch"
